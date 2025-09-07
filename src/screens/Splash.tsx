@@ -4,7 +4,7 @@ import React from 'react';
 const Splash = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.logo}>Splash</Text>
+      <Text style={styles.logo}>OLX</Text>
     </View>
   );
 };

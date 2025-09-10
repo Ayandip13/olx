@@ -6,10 +6,11 @@ const Splash = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       navigation.navigate('HomeScreen');
-    }, 3000);
-  }, []);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [navigation]);
 
   return (
     <View style={styles.container}>

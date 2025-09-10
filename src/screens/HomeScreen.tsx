@@ -1,10 +1,26 @@
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
+import Home from '../tabs/Home';
+import Search from '../tabs/Search';
+import Add from '../tabs/Add';
+import WishList from '../tabs/WishList';
+import User from '../tabs/User';
 
 const HomeScreen = () => {
   const [selectedTab, setSelectedTab] = useState<number>(0);
   return (
     <View style={styles.container}>
+      {selectedTab === 0 ? (
+        <Home />
+      ) : selectedTab === 1 ? (
+        <Search />
+      ) : selectedTab === 2 ? (
+        <Add />
+      ) : selectedTab === 3 ? (
+        <WishList />
+      ) : (
+        <User />
+      )}
       <View style={styles.bottomTabs}>
         <TouchableOpacity style={styles.tabs} onPress={() => setSelectedTab(0)}>
           <Image
@@ -65,7 +81,7 @@ const styles = StyleSheet.create({
   bottomTabs: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    padding: 15,
+    padding: 8,
     backgroundColor: '#c4c4c462',
     position: 'absolute',
     bottom: 0,

@@ -2,6 +2,7 @@ import {
   Dimensions,
   FlatList,
   Image,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -11,7 +12,7 @@ import React, { useState } from 'react';
 import InputText from '../component/InputText';
 
 const Home = () => {
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState<string>('');
   const data = [
     {
       id: '1',
@@ -45,7 +46,7 @@ const Home = () => {
     },
   ];
   return (
-    <View style={styles.container}>
+    <ScrollView nestedScrollEnabled={true} style={styles.container}>
       <Text style={styles.logo}>Olx clone</Text>
       <View style={styles.searchBox}>
         <InputText
@@ -64,8 +65,8 @@ const Home = () => {
       <Text style={styles.heading}>What are you looking for...</Text>
       <View style={styles.blankContainer} />
       <FlatList
+        style={styles.flatList}
         data={data}
-        // contentContainerStyle={{ paddingBottom: 20 }}
         keyExtractor={item => item.id}
         numColumns={3}
         renderItem={({ item }) => (
@@ -75,7 +76,26 @@ const Home = () => {
           </TouchableOpacity>
         )}
       />
-    </View>
+      <Text style={styles.heading}>Posted Items</Text>
+      <FlatList
+        data={[1, 2, 3, 4, 5]}
+        renderItem={({ item }) => (
+          <TouchableOpacity style={styles.item}>
+            <Image
+              source={require('../images/image.png')}
+              style={styles.itemImage2}
+            />
+            <View>
+              <Text style={styles.itemName}>{'Iphone 14 pro'}</Text>
+              <Text style={styles.itemSubtitle}>
+                {'New Bought 5 months ago'}
+              </Text>
+              <Text style={styles.itemPrice}>{'INR' + '70,000'}</Text>
+            </View>
+          </TouchableOpacity>
+        )}
+      />
+    </ScrollView>
   );
 };
 
@@ -86,7 +106,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 10,
     backgroundColor: '#fff',
-    paddingBottom: 300,
   },
   logo: {
     fontSize: 30,
@@ -121,8 +140,8 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   itemImage: {
-    width: 80,
-    height: 80,
+    width: 60,
+    height: 60,
     margin: 10,
   },
   itemContainer: {
@@ -132,10 +151,41 @@ const styles = StyleSheet.create({
     backgroundColor: '#cfcfcf81',
     margin: 4,
     borderRadius: 10,
-    paddingBottom: 10,
+    paddingBottom: 5,
   },
   blankContainer: {
     height: Dimensions.get('window').height * 0.02,
     width: '100%',
+  },
+  flatList: {
+    flexGrow: 0,
+    height: Dimensions.get('window').height * 0.4,
+  },
+  item: {
+    width: '90%',
+    height: 100,
+    backgroundColor: '#c4c4c462',
+    marginTop: 5,
+    alignSelf: 'center',
+    borderRadius: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  itemImage2: {
+    width: 80,
+    height: 80,
+    marginLeft: 10,
+  },
+  itemName: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  itemSubtitle: {
+    fontSize: 14,
+    color: 'grey',
+  },
+  itemPrice: {
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });

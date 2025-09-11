@@ -79,13 +79,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bottomTabs: {
+    bottom: 0,
     flexDirection: 'row',
     justifyContent: 'space-around',
     padding: 8,
     backgroundColor: '#c4c4c462',
-    // position: 'absolute',
-    bottom: 0,
-    width: '100%',
   },
   tabs: {
     width: '20%',

@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     padding: 8,
     backgroundColor: '#c4c4c462',
-    position: 'absolute',
+    // position: 'absolute',
     bottom: 0,
     width: '100%',
   },

@@ -91,7 +91,7 @@ const Home = () => {
                 <Text style={styles.itemSubtitle}>
                   {'New Bought 5 months ago'}
                 </Text>
-                <Text style={styles.itemPrice}>{'INR' + '70,000'}</Text>
+                <Text style={styles.itemPrice}>{'INR' + ' 70,000'}</Text>
               </View>
             </TouchableOpacity>
           )}
@@ -188,6 +188,7 @@ const styles = StyleSheet.create({
   itemPrice: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: 'green',
   },
   itemContainer2: {
     marginLeft: 15,

@@ -46,7 +46,7 @@ const Home = () => {
     },
   ];
   return (
-    <ScrollView nestedScrollEnabled={true} style={styles.container}>
+    <ScrollView nestedScrollEnabled={false} style={styles.container}>
       <Text style={styles.logo}>Olx clone</Text>
       <View style={styles.searchBox}>
         <InputText
@@ -70,31 +70,32 @@ const Home = () => {
         keyExtractor={item => item.id}
         numColumns={3}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.itemContainer}>
+          <TouchableOpacity activeOpacity={0.6} style={styles.itemContainer}>
             <Image source={item.image} style={styles.itemImage} />
             <Text>{item.title}</Text>
           </TouchableOpacity>
         )}
       />
       <Text style={styles.heading}>Posted Items</Text>
-      <FlatList
-        data={[1, 2, 3, 4, 5]}
-        renderItem={({ item }) => (
-          <TouchableOpacity style={styles.item}>
-            <Image
-              source={require('../images/image.png')}
-              style={styles.itemImage2}
-            />
-            <View>
-              <Text style={styles.itemName}>{'Iphone 14 pro'}</Text>
-              <Text style={styles.itemSubtitle}>
-                {'New Bought 5 months ago'}
-              </Text>
-              <Text style={styles.itemPrice}>{'INR' + '70,000'}</Text>
-            </View>
-          </TouchableOpacity>
-        )}
-      />
+      <View style={styles.blankContainer} />
+        <FlatList
+          data={[1, 2, 3, 4, 5]}
+          renderItem={({ item }) => (
+            <TouchableOpacity style={styles.item} activeOpacity={0.6}>
+              <Image
+                source={require('../images/image.png')}
+                style={styles.itemImage2}
+              />
+              <View style={styles.itemContainer2}>
+                <Text style={styles.itemName}>{'Iphone 14 pro'}</Text>
+                <Text style={styles.itemSubtitle}>
+                  {'New Bought 5 months ago'}
+                </Text>
+                <Text style={styles.itemPrice}>{'INR' + '70,000'}</Text>
+              </View>
+            </TouchableOpacity>
+          )}
+        />
     </ScrollView>
   );
 };
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#cfcfcf81',
+    backgroundColor: '#b7ebff3f',
     margin: 4,
     borderRadius: 10,
     paddingBottom: 5,
@@ -159,12 +160,12 @@ const styles = StyleSheet.create({
   },
   flatList: {
     flexGrow: 0,
-    height: Dimensions.get('window').height * 0.4,
+    height: Dimensions.get('window').height * 0.28,
   },
   item: {
     width: '90%',
     height: 100,
-    backgroundColor: '#c4c4c462',
+    backgroundColor: '#b7ebff3f',
     marginTop: 5,
     alignSelf: 'center',
     borderRadius: 10,
@@ -172,8 +173,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   itemImage2: {
-    width: 80,
-    height: 80,
+    width: 70,
+    height: 70,
     marginLeft: 10,
   },
   itemName: {
@@ -187,5 +188,8 @@ const styles = StyleSheet.create({
   itemPrice: {
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  itemContainer2: {
+    marginLeft: 15,
   },
 });

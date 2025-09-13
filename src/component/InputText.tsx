@@ -7,6 +7,15 @@ interface InputTextProps {
   onChangeText?: (text: string) => void;
   style: StyleProp<any>;
   placeHolderTextColor?: StyleProp<any>;
+  keyboardType?:
+    | 'default'
+    | 'numeric'
+    | 'email-address'
+    | 'phone-pad'
+    | 'number-pad'
+    | 'decimal-pad'
+    | 'visible-password'
+    | 'web-search';
 }
 
 const InputText = ({
@@ -15,6 +24,7 @@ const InputText = ({
   onChangeText,
   style,
   placeHolderTextColor,
+  keyboardType,
 }: InputTextProps) => {
   return (
     <View>
@@ -23,6 +33,7 @@ const InputText = ({
         placeholder={placeholder}
         placeholderTextColor={placeHolderTextColor}
         value={value}
+        keyboardType={keyboardType}
         onChangeText={onChangeText}
       />
     </View>

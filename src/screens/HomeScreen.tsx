@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     padding: 8,
-    backgroundColor: '#b8b8b854',
+    backgroundColor: '#b8b8b823',
   },
   tabs: {
     width: '20%',

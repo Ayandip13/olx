@@ -1,38 +1,153 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
+import {
+  Image,
+  PermissionsAndroid,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, { useState } from 'react';
 import InputText from '../component/InputText';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { useDispatch } from 'react-redux';
+import { addPost } from '../redux/PostSlice';
 
 const Add = () => {
+  const [photo, setPhoto] = useState({
+    assets: [
+      {
+        uri: '',
+        width: 0,
+        height: 0,
+        fileName: '',
+        fileSize: 0,
+        type: '',
+      },
+    ],
+  });
+  const [name, setName] = useState<null | string>(null);
+  const [description, setDescription] = useState<null | string>(null);
+  const [price, setPrice] = useState<null | string | number>(null);
+  const dispatch = useDispatch();
+
+  const requestCameraPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        {
+          title: 'Cool Photo App Camera Permission',
+          message:
+            'Cool Photo App needs access to your camera ' +
+            'so you can take awesome pictures.',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('You can use the camera');
+        openCamera();
+      } else {
+        console.log('Camera permission denied');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+  const openCamera = async () => {
+    const result = await launchCamera({
+      mediaType: 'photo',
+      includeBase64: false,
+      maxHeight: 200,
+      maxWidth: 200,
+      quality: 1,
+    });
+    if (!result.didCancel) {
+      setPhoto(result as any);
+    }
+    console.log(result);
+  };
+
+  const addItem = () => {
+    dispatch(addPost({ photo: photo.assets[0].uri, name, description, price }));
+    setName(null);
+    setDescription(null);
+    setPrice(null);
+    setPhoto({
+      assets: [
+        {
+          uri: '',
+          width: 0,
+          height: 0,
+          fileName: '',
+          fileSize: 0,
+          type: '',
+        },
+      ],
+    });
+  };
+
+  const openGallary = async () => {
+    const result = await launchImageLibrary({
+      mediaType: 'photo',
+      includeBase64: false,
+      maxHeight: 200,
+      maxWidth: 200,
+      quality: 1,
+    });
+    if (!result.didCancel) {
+      setPhoto(result as any);
+    }
+    console.log(result);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Add Post</Text>
       </View>
-      <TouchableOpacity style={styles.imageContainer}>
-        <Image
-          source={require('../images/pictures.png')}
-          style={styles.imagePlaceholder}
-        />
+      <TouchableOpacity
+        style={styles.imageContainer}
+        onPress={requestCameraPermission}
+      >
+        {photo.assets[0].uri == '' ? (
+          <Image
+            source={require('../images/pictures.png')}
+            style={styles.imagePlaceholder}
+          />
+        ) : (
+          <Image
+            source={{ uri: photo.assets[0].uri }}
+            style={styles.imagePlaceholder}
+          />
+        )}
       </TouchableOpacity>
       <InputText
         style={styles.input}
         keyboardType="default"
         placeholder="Enter Item name"
         placeHolderTextColor="#aaaaaa"
+        value={name as string}
+        onChangeText={setName}
       />
       <InputText
         style={styles.input}
         keyboardType="default"
         placeholder="Enter Item Description"
         placeHolderTextColor="#aaaaaa"
+        value={description as string}
+        onChangeText={setDescription}
       />
       <InputText
         style={styles.input}
         keyboardType="number-pad"
         placeholder="Enter Item Price"
         placeHolderTextColor="#aaaaaa"
+        value={price as string}
+        onChangeText={text => setPrice(text)}
       />
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity style={styles.btn} onPress={addItem}>
         <Text style={styles.btnText}>Post My Item</Text>
       </TouchableOpacity>
     </View>
@@ -59,8 +174,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   imagePlaceholder: {
-    width: 130,
-    height: 130,
+    width: 200,
+    height: 150,
     alignSelf: 'center',
   },
   imageContainer: {

@@ -4,7 +4,6 @@ import User from '../tabs/User';
 import Add from '../tabs/Add';
 import Search from '../tabs/Search';
 import WishList from '../tabs/WishList';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Image } from 'react-native';
 
 const Tab = createBottomTabNavigator();
@@ -19,7 +18,7 @@ const HomeScreen = () => {
       fontFamily: 'Georgia',
       fontWeight: '300',
     },
-    tabBarIcon: ({ focused, color, size }) => {
+    tabBarIcon: ({ focused, size }) => {
       let iconSource;
 
       if (route.name === 'Home') {

@@ -1,5 +1,7 @@
 import {
+  Alert,
   Image,
+  Linking,
   PermissionsAndroid,
   StyleSheet,
   Text,
@@ -11,6 +13,7 @@ import InputText from '../component/InputText';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { useDispatch } from 'react-redux';
 import { addPost } from '../redux/PostSlice';
+import { useNavigation } from '@react-navigation/native';
 
 const Add = () => {
   const [photo, setPhoto] = useState({
@@ -86,6 +89,7 @@ const Add = () => {
         },
       ],
     });
+    Alert.prompt('Item Added Successfully');
   };
 
   const openGallary = async () => {

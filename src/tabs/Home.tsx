@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import InputText from '../component/InputText';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
   const [searchText, setSearchText] = useState<string>('');
@@ -45,6 +46,8 @@ const Home = () => {
       image: require('../images/furniture.png'),
     },
   ];
+  const items = useSelector((state)=>state.post);
+  console.log('items',items);
   return (
     <ScrollView nestedScrollEnabled={false} style={styles.container}>
       <Text style={styles.logo}>Olx clone</Text>
@@ -79,19 +82,19 @@ const Home = () => {
       <Text style={styles.heading}>Posted Items</Text>
       <View style={styles.blankContainer} />
         <FlatList
-          data={[1, 2, 3, 4, 5]}
+          data={items.data}
           renderItem={({ item }) => (
             <TouchableOpacity style={styles.item} activeOpacity={0.6}>
               <Image
-                source={require('../images/image.png')}
+                source={{ uri: item?.photo }}
                 style={styles.itemImage2}
               />
               <View style={styles.itemContainer2}>
-                <Text style={styles.itemName}>{'Iphone 14 pro'}</Text>
+                <Text style={styles.itemName}>{item.name}</Text>
                 <Text style={styles.itemSubtitle}>
-                  {'New Bought 5 months ago'}
+                  {item.description}
                 </Text>
-                <Text style={styles.itemPrice}>{'INR' + ' 70,000'}</Text>
+                <Text style={styles.itemPrice}>{'INR' + ' ' + item.price}</Text>
               </View>
             </TouchableOpacity>
           )}
@@ -176,6 +179,7 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     marginLeft: 10,
+    borderRadius: 10,
   },
   itemName: {
     fontSize: 16,

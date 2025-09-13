@@ -1,100 +1,63 @@
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../tabs/Home';
-import Search from '../tabs/Search';
-import Add from '../tabs/Add';
-import WishList from '../tabs/WishList';
 import User from '../tabs/User';
+import Add from '../tabs/Add';
+import Search from '../tabs/Search';
+import WishList from '../tabs/WishList';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Image } from 'react-native';
 
+const Tab = createBottomTabNavigator();
 const HomeScreen = () => {
-  const [selectedTab, setSelectedTab] = useState<number>(0);
   return (
-    <View style={styles.container}>
-      {selectedTab === 0 ? (
-        <Home />
-      ) : selectedTab === 1 ? (
-        <Search />
-      ) : selectedTab === 2 ? (
-        <Add />
-      ) : selectedTab === 3 ? (
-        <WishList />
-      ) : (
-        <User />
-      )}
-      <View style={styles.bottomTabs}>
-        <TouchableOpacity style={styles.tabs} onPress={() => setSelectedTab(0)}>
-          <Image
-            source={require('../images/home.png')}
-            style={[
-              styles.tabIcons,
-              { tintColor: selectedTab === 0 ? 'blue' : '#000' },
-            ]}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tabs} onPress={() => setSelectedTab(1)}>
-          <Image
-            source={require('../images/search.png')}
-            style={[
-              styles.tabIcons,
-              { tintColor: selectedTab === 1 ? 'blue' : '#000' },
-            ]}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tabs} onPress={() => setSelectedTab(2)}>
-          <Image
-            source={require('../images/plus.png')}
-            style={[
-              styles.tabIcons,
-              { tintColor: selectedTab === 2 ? 'blue' : '#000' },
-            ]}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tabs} onPress={() => setSelectedTab(3)}>
-          <Image
-            source={require('../images/heart.png')}
-            style={[
-              styles.tabIcons,
-              { tintColor: selectedTab === 3 ? 'blue' : '#000' },
-            ]}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tabs} onPress={() => setSelectedTab(4)}>
-          <Image
-            source={require('../images/account.png')}
-            style={[
-              styles.tabIcons,
-              { tintColor: selectedTab === 4 ? 'blue' : '#000' },
-            ]}
-          />
-        </TouchableOpacity>
-      </View>
-    </View>
+    <Tab.Navigator
+  screenOptions={({ route }) => ({
+    headerShown: false,
+    tabBarStyle: { height: 60 },
+    tabBarLabelStyle: {
+      fontSize: 14,
+      fontFamily: 'Georgia',
+      fontWeight: '300',
+    },
+    tabBarIcon: ({ focused, color, size }) => {
+      let iconSource;
+
+      if (route.name === 'Home') {
+        iconSource = require('../images/home.png');
+      } else if (route.name === 'Search') {
+        iconSource = require('../images/search.png');
+      } else if (route.name === 'Add') {
+        iconSource = require('../images/plus.png');
+      } else if (route.name === 'WishList') {
+        iconSource = require('../images/heart.png');
+      } else if (route.name === 'Profile') {
+        iconSource = require('../images/account.png');
+      }
+
+      return (
+        <Image
+          source={iconSource}
+          style={{
+            width: size,
+            height: size,
+            tintColor: focused ? '#0080ff' : 'gray',
+            resizeMode: 'contain',
+          }}
+        />
+      );
+    },
+    tabBarActiveTintColor: '#0080ff',
+    tabBarInactiveTintColor: 'gray',
+  })}
+>
+  <Tab.Screen name="Home" component={Home} />
+  <Tab.Screen name="Search" component={Search} />
+  <Tab.Screen name="Add" component={Add} />
+  <Tab.Screen name="WishList" component={WishList} />
+  <Tab.Screen name="Profile" component={User} />
+</Tab.Navigator>
+
   );
 };
 
 export default HomeScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  bottomTabs: {
-    bottom: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 8,
-    backgroundColor: '#b8b8b823',
-  },
-  tabs: {
-    width: '20%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 50,
-    borderRadius: 20,
-  },
-  tabIcons: {
-    width: 25,
-    height: 25,
-    resizeMode: 'contain',
-  },
-});

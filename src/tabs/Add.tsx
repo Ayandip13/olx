@@ -33,7 +33,7 @@ const Add = () => {
   const [price, setPrice] = useState<null | string | number>(null);
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const [selectedCategory, setSelectedCategory] = useState<boolean>(false);
+  const [selectedCategory, setSelectedCategory] = useState<null | string>(null);
 
   const requestCameraPermission = async () => {
     try {
@@ -75,7 +75,7 @@ const Add = () => {
   };
 
   const addItem = () => {
-    dispatch(addPost({ photo: photo.assets[0].uri, name, description, price }));
+    dispatch(addPost({ photo: photo.assets[0].uri, name, description, price, category: selectedCategory }));
     setName(null);
     setDescription(null);
     setPrice(null);
@@ -91,6 +91,7 @@ const Add = () => {
         },
       ],
     });
+    setSelectedCategory(null);
     navigation.navigate('Home' as never);
   };
 
@@ -158,23 +159,125 @@ const Add = () => {
         <Text style={styles.label}>Category</Text>
         <View style={styles.blankSpace} />
         <View style={styles.categoryContainer}>
-          <TouchableOpacity style={[styles.categorySelector]} onPress={()=>setSelectedCategory(true)}>
-            <Text style={styles.inputText}>Car</Text>
+          <TouchableOpacity
+            style={[
+              styles.categorySelector,
+              selectedCategory === 'Car'
+                ? { backgroundColor: '#00b7ffde', borderColor: '#00b7ffde' }
+                : { backgroundColor: '#ffffff', borderColor: '#000000' },
+            ]}
+            onPress={() => setSelectedCategory('Car')}
+          >
+            <Text
+              style={[
+                styles.inputText,
+                selectedCategory === 'Car'
+                  ? { color: '#ffffff' }
+                  : { color: '#000000' },
+              ]}
+            >
+              Car
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.categorySelector} onPress={()=>setSelectedCategory(true)}>
-            <Text style={styles.inputText}>Bike</Text>
+          <TouchableOpacity
+            style={[
+              styles.categorySelector,
+              selectedCategory === 'Bike'
+                ? { backgroundColor: '#00b7ffde', borderColor: '#00b7ffde' }
+                : { backgroundColor: '#ffffff', borderColor: '#000000' },
+            ]}
+            onPress={() => setSelectedCategory('Bike')}
+          >
+            <Text
+              style={[
+                styles.inputText,
+                selectedCategory === 'Bike'
+                  ? { color: '#ffffff' }
+                  : { color: '#000000' },
+              ]}
+            >
+              Bike
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.categorySelector} onPress={()=>setSelectedCategory(true)}>
-            <Text style={styles.inputText}>Mobile</Text>
+          <TouchableOpacity
+            style={[
+              styles.categorySelector,
+              selectedCategory === 'Mobile'
+                ? { backgroundColor: '#00b7ffde', borderColor: '#00b7ffde' }
+                : { backgroundColor: '#ffffff', borderColor: '#000000' },
+            ]}
+            onPress={() => setSelectedCategory('Mobile')}
+          >
+            <Text
+              style={[
+                styles.inputText,
+                selectedCategory === 'Mobile'
+                  ? { color: '#ffffff' }
+                  : { color: '#000000' },
+              ]}
+            >
+              Mobile
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.categorySelector} onPress={()=>setSelectedCategory(true)}>
-            <Text style={styles.inputText}>Laptop</Text>
+          <TouchableOpacity
+            style={[
+              styles.categorySelector,
+              selectedCategory === 'Laptop'
+                ? { backgroundColor: '#00b7ffde', borderColor: '#00b7ffde' }
+                : { backgroundColor: '#ffffff', borderColor: '#000000' },
+            ]}
+            onPress={() => setSelectedCategory('Laptop')}
+          >
+            <Text
+              style={[
+                styles.inputText,
+                selectedCategory === 'Laptop'
+                  ? { color: '#ffffff' }
+                  : { color: '#000000' },
+              ]}
+            >
+              Laptop
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.categorySelector} onPress={()=>setSelectedCategory(true)}>
-            <Text style={styles.inputText}>Furniture</Text>
+          <TouchableOpacity
+            style={[
+              styles.categorySelector,
+              selectedCategory === 'Furniture'
+                ? { backgroundColor: '#00b7ffde', borderColor: '#00b7ffde' }
+                : { backgroundColor: '#ffffff', borderColor: '#000000' },
+            ]}
+            onPress={() => setSelectedCategory('Furniture')}
+          >
+            <Text
+              style={[
+                styles.inputText,
+                selectedCategory === 'Furniture'
+                  ? { color: '#ffffff' }
+                  : { color: '#000000' },
+              ]}
+            >
+              Furniture
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.categorySelector} onPress={()=>setSelectedCategory(true)}>
-            <Text style={styles.inputText}>House</Text>
+          <TouchableOpacity
+            style={[
+              styles.categorySelector,
+              selectedCategory === 'House'
+                ? { backgroundColor: '#00b7ffde', borderColor: '#00b7ffde' }
+                : { backgroundColor: '#ffffff', borderColor: '#000000' },
+            ]}
+            onPress={() => setSelectedCategory('House')}
+          >
+            <Text
+              style={[
+                styles.inputText,
+                selectedCategory === 'House'
+                  ? { color: '#ffffff' }
+                  : { color: '#000000' },
+              ]}
+            >
+              House
+            </Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity style={styles.btn} onPress={addItem}>
@@ -195,6 +298,7 @@ const styles = StyleSheet.create({
   },
   inputText: {
     fontSize: 15,
+    fontWeight: 'bold',
     color: '#000000',
     alignSelf: 'center',
   },

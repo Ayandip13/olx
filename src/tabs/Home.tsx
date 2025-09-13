@@ -46,8 +46,9 @@ const Home = () => {
       image: require('../images/furniture.png'),
     },
   ];
-  const items = useSelector((state)=>state.post);
-  console.log('items',items);
+  const items = useSelector(state => state.post);
+  console.log('items', items);
+  const data2 = items.data;
   return (
     <ScrollView nestedScrollEnabled={false} style={styles.container}>
       <Text style={styles.logo}>Olx clone</Text>
@@ -81,24 +82,30 @@ const Home = () => {
       />
       <Text style={styles.heading}>Posted Items</Text>
       <View style={styles.blankContainer} />
-        <FlatList
-          data={items.data}
-          renderItem={({ item }) => (
-            <TouchableOpacity style={styles.item} activeOpacity={0.6}>
-              <Image
-                source={{ uri: item?.photo }}
-                style={styles.itemImage2}
-              />
+      <FlatList
+        data={data2}
+        renderItem={({ item }) => (
+          <TouchableOpacity style={styles.item} activeOpacity={0.6}>
+            <Image source={{ uri: item?.photo }} style={styles.itemImage2} />
+            <View
+              style={{
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+                width: '72%',
+              }}
+            >
               <View style={styles.itemContainer2}>
                 <Text style={styles.itemName}>{item.name}</Text>
-                <Text style={styles.itemSubtitle}>
-                  {item.description}
-                </Text>
+                <Text style={styles.itemSubtitle}>{item.description}</Text>
                 <Text style={styles.itemPrice}>{'INR' + ' ' + item.price}</Text>
               </View>
-            </TouchableOpacity>
-          )}
-        />
+              <View style={styles.itemCategoryContainer}>
+                <Text style={styles.itemCategory}>{item.category}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        )}
+      />
     </ScrollView>
   );
 };
@@ -110,6 +117,21 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 10,
     backgroundColor: '#fff',
+  },
+  itemCategoryContainer: {
+    backgroundColor: '#00c3ff59',
+    borderWidth: 1,
+    borderColor: '#00c3ff',
+    borderRadius: 20,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    alignSelf: 'flex-start',
+  },
+  itemCategory: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#000',
+    padding: 2,
   },
   logo: {
     fontSize: 30,

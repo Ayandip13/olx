@@ -11,9 +11,11 @@ import {
 import React, { useState } from 'react';
 import InputText from '../component/InputText';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 const Home = () => {
   const [searchText, setSearchText] = useState<string>('');
+  const navigation = useNavigation();
   const data = [
     {
       id: '1',
@@ -74,7 +76,13 @@ const Home = () => {
         keyExtractor={item => item.id}
         numColumns={3}
         renderItem={({ item }) => (
-          <TouchableOpacity activeOpacity={0.6} style={styles.itemContainer}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('ItemsByCategory', { category: item.title })
+            }
+            activeOpacity={0.6}
+            style={styles.itemContainer}
+          >
             <Image source={item.image} style={styles.itemImage} />
             <Text>{item.title}</Text>
           </TouchableOpacity>

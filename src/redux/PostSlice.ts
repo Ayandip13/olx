@@ -9,15 +9,11 @@ export const PostSlice = createSlice({
     addPost(state, action) {
       state.data.push(action.payload);
     },
-    // getItemsByCategory(state, action) {
-    //   let tempData = [];
-    //   tempData = state.data.filter(item => {
-    //     return item.category === action.payload;
-    //   });
-    //   state.data = tempData;
-    // },
+    addToWishList(state, action) {
+      state.data.push(action.payload);
+    },
   },
 });
 
-export const { addPost } = PostSlice.actions;
+export const { addPost, addToWishList } = PostSlice.actions;
 export default PostSlice.reducer;

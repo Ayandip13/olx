@@ -18,7 +18,6 @@ const Search = () => {
     let tempList = items.data;
     let temp = tempList.filter((item: any) => {
       return item.name.toLowerCase().match(text.toLowerCase());
-      // return item.title.toLowerCase().match(text.toLowerCase());
     });
     setItemList(temp);
   };
@@ -51,9 +50,6 @@ const Search = () => {
                 <Text style={styles.itemName}>{item.name}</Text>
                 <Text style={styles.itemSubtitle}>{item.description}</Text>
                 <Text style={styles.itemPrice}>{'INR' + ' ' + item.price}</Text>
-              </View>
-              <View style={styles.itemCategoryContainer}>
-                <Text style={styles.itemCategory}>{item.category}</Text>
               </View>
             </View>
           </TouchableOpacity>

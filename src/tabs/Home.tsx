@@ -10,12 +10,14 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import InputText from '../component/InputText';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import { addToWishList } from '../redux/WishListSlice';
 
 const Home = () => {
   const [searchText, setSearchText] = useState<string>('');
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const data = [
     {
       id: '1',
@@ -92,23 +94,39 @@ const Home = () => {
       <View style={styles.blankContainer} />
       <FlatList
         data={data2}
+        keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.item} activeOpacity={0.6}>
-            <Image source={{ uri: item?.photo }} style={styles.itemImage2} />
-            <View
-              style={{
-                justifyContent: 'space-between',
-                flexDirection: 'row',
-                width: '72%',
-              }}
-            >
-              <View style={styles.itemContainer2}>
-                <Text style={styles.itemName}>{item.name}</Text>
-                <Text style={styles.itemSubtitle}>{item.description}</Text>
-                <Text style={styles.itemPrice}>{'INR' + ' ' + item.price}</Text>
+          <TouchableOpacity style={styles.postedItemCard} activeOpacity={0.7}>
+            <Image
+              source={{ uri: item?.photo }}
+              style={styles.postedItemImage}
+            />
+            <View style={styles.postedItemContent}>
+              <View style={styles.postedItemTopRow}>
+                <Text style={styles.postedItemName}>{item.name}</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('WishList');
+                    dispatch(addToWishList(item));
+                  }}
+                  activeOpacity={0.6}
+                >
+                  <Image
+                    source={require('../images/heart.png')}
+                    style={styles.heart}
+                  />
+                </TouchableOpacity>
               </View>
-              <View style={styles.itemCategoryContainer}>
-                <Text style={styles.itemCategory}>{item.category}</Text>
+
+              <Text style={styles.postedItemDescription}>
+                {item.description}
+              </Text>
+
+              <View style={styles.postedItemBottomRow}>
+                <Text style={styles.postedItemPrice}>₹ {item.price}</Text>
+                <View style={styles.postedItemCategoryContainer}>
+                  <Text style={styles.postedItemCategory}>{item.category}</Text>
+                </View>
               </View>
             </View>
           </TouchableOpacity>
@@ -126,12 +144,27 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     backgroundColor: '#fff',
   },
+  heart: {
+    height: 20,
+    width: 20,
+  },
+  postedItemTopRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingRight: 10,
+  },
+  itemContainer3: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    width: '72%',
+  },
   itemCategoryContainer: {
     backgroundColor: '#00c3ff59',
     borderWidth: 1,
     borderColor: '#00c3ff',
     borderRadius: 20,
-    paddingVertical: 4,
+    paddingVertical: 5,
     paddingHorizontal: 10,
     alignSelf: 'flex-start',
   },
@@ -226,5 +259,60 @@ const styles = StyleSheet.create({
   },
   itemContainer2: {
     marginLeft: 15,
+  },
+  postedItemCard: {
+    flexDirection: 'row',
+    backgroundColor: '#b7ebff3f',
+    borderRadius: 10,
+    padding: 10,
+    marginVertical: 5,
+    alignItems: 'center',
+    width: '90%',
+    alignSelf: 'center',
+  },
+  postedItemImage: {
+    width: 70,
+    height: 70,
+    borderRadius: 10,
+    marginRight: 10,
+  },
+  postedItemContent: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  postedItemName: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 2,
+  },
+  postedItemDescription: {
+    fontSize: 14,
+    color: 'grey',
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    marginBottom: 4,
+  },
+  postedItemBottomRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  postedItemPrice: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'green',
+  },
+  postedItemCategoryContainer: {
+    backgroundColor: '#00c3ff59',
+    borderWidth: 1,
+    borderColor: '#00c3ff',
+    borderRadius: 20,
+    paddingVertical: 2,
+    paddingHorizontal: 10,
+  },
+  postedItemCategory: {
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#000',
   },
 });

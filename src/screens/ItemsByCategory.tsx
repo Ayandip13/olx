@@ -28,17 +28,24 @@ const ItemsByCategory = () => {
     <View>
       <FlatList
         data={itemList}
+        ListHeaderComponentStyle={{ alignItems: 'center' }}
+        ListHeaderComponent={() => {
+          return (
+            <View style={styles.listHeaderComp}>
+              <Text style={{ fontSize: 17, fontWeight: 'bold' }}>
+                {route.params.category} lists
+              </Text>
+            </View>
+          );
+        }}
         renderItem={({ item }) => (
           <TouchableOpacity style={styles.item} activeOpacity={0.6}>
-            <Image source={{ uri: item?.photo }} style={styles.itemImage2} /> 
+            <Image source={{ uri: item?.photo }} style={styles.itemImage2} />
             <View style={styles.itemContainer3}>
               <View style={styles.itemContainer2}>
                 <Text style={styles.itemName}>{item.name}</Text>
                 <Text style={styles.itemSubtitle}>{item.description}</Text>
                 <Text style={styles.itemPrice}>{'INR' + ' ' + item.price}</Text>
-              </View>
-              <View style={styles.itemCategoryContainer}>
-                <Text style={styles.itemCategory}>{item.category}</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -60,6 +67,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  listHeaderComp: {
+    marginTop: 20,
+    backgroundColor: '#00c3ff59',
+    paddingVertical: 10,
+    alignItems: 'center',
+    marginBottom: 10,
+    width: '90%',
+    borderRadius: 10,
   },
   itemImage2: {
     width: 70,

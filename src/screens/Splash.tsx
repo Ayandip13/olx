@@ -7,10 +7,12 @@ import Animated, {
   withTiming,
   Easing,
 } from 'react-native-reanimated';
+import useScreenBackground from '../hooks/useScreenBackground';
 
 const Splash = () => {
   const navigation = useNavigation();
   const opacity = useSharedValue(0);
+  const Background = useScreenBackground();
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
@@ -46,9 +48,8 @@ const Splash = () => {
 
   return (
     <View style={styles.container}>
-      <Animated.Text style={[styles.logo, animatedStyle]}>
-        OLX
-      </Animated.Text>
+      <Background />
+      <Animated.Text style={[styles.logo, animatedStyle]}>OLX</Animated.Text>
     </View>
   );
 };
@@ -58,7 +59,7 @@ export default Splash;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ADBCFF',
+    backgroundColor: '#ffffff',
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -28,6 +28,7 @@ const ItemsByCategory = () => {
   }, []);
   return (
     <View>
+      <Background />
       <FlatList
         data={itemList}
         ListHeaderComponentStyle={{ alignItems: 'center' }}

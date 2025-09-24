@@ -9,8 +9,10 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRoute } from '@react-navigation/native';
+import useScreenBackground from '../hooks/useScreenBackground';
 
 const ItemsByCategory = () => {
+  const Background = useScreenBackground();
   const route = useRoute();
   const [itemList, setItemList] = useState<string[]>([]);
   const items = useSelector(state => state.post);
@@ -61,12 +63,14 @@ const styles = StyleSheet.create({
   item: {
     width: '90%',
     height: 100,
-    backgroundColor: '#b7ebff3f',
+    backgroundColor: '#ffffff3f',
     marginTop: 5,
     alignSelf: 'center',
     borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
+    borderColor: '#00c3ff',
+    borderWidth: 0.5,
   },
   listHeaderComp: {
     marginTop: 20,

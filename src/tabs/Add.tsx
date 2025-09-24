@@ -1,10 +1,12 @@
 import {
+  Alert,
   Dimensions,
   Image,
   PermissionsAndroid,
   ScrollView,
   StyleSheet,
   Text,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -14,6 +16,7 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { useDispatch } from 'react-redux';
 import { addPost } from '../redux/PostSlice';
 import { useNavigation } from '@react-navigation/native';
+import useScreenBackground from '../hooks/useScreenBackground';
 
 const Add = () => {
   const [photo, setPhoto] = useState({
@@ -28,6 +31,7 @@ const Add = () => {
       },
     ],
   });
+  const Background = useScreenBackground();
   const [name, setName] = useState<null | string>(null);
   const [description, setDescription] = useState<null | string>(null);
   const [price, setPrice] = useState<null | string | number>(null);
@@ -75,24 +79,42 @@ const Add = () => {
   };
 
   const addItem = () => {
-    dispatch(addPost({ photo: photo.assets[0].uri, name, description, price, category: selectedCategory }));
-    setName(null);
-    setDescription(null);
-    setPrice(null);
-    setPhoto({
-      assets: [
-        {
-          uri: '',
-          width: 0,
-          height: 0,
-          fileName: '',
-          fileSize: 0,
-          type: '',
-        },
-      ],
-    });
-    setSelectedCategory(null);
-    navigation.navigate('Home' as never);
+    if (
+      name === null ||
+      description === null ||
+      price === null ||
+      selectedCategory === null ||
+      photo.assets[0].uri === ''
+    ) {
+      ToastAndroid.show('Please fill all the fields', ToastAndroid.CENTER);
+    } else {
+      dispatch(
+        addPost({
+          photo: photo.assets[0].uri,
+          name,
+          description,
+          price,
+          category: selectedCategory,
+        }),
+      );
+      setName(null);
+      setDescription(null);
+      setPrice(null);
+      setPhoto({
+        assets: [
+          {
+            uri: '',
+            width: 0,
+            height: 0,
+            fileName: '',
+            fileSize: 0,
+            type: '',
+          },
+        ],
+      });
+      setSelectedCategory(null);
+      navigation.navigate('Home' as never);
+    }
   };
 
   const openGallary = async () => {
@@ -111,6 +133,7 @@ const Add = () => {
 
   return (
     <ScrollView style={styles.container}>
+      <Background />
       <View style={styles.header}>
         <Text style={styles.headerText}>Add Post</Text>
       </View>
@@ -309,9 +332,10 @@ const styles = StyleSheet.create({
   header: {
     height: 60,
     width: '100%',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#9ceaff34',
+    borderWidth: 0.5,
+    borderColor: '#00b7ffde',
     justifyContent: 'center',
-    elevation: 7,
     alignItems: 'center',
   },
   headerText: {
@@ -328,7 +352,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingVertical: 10,
     marginVertical: 15,
-    backgroundColor: 'rgba(106, 213, 255, 0.25)',
+    backgroundColor: '#ffffff',
+    elevation: 5,
     borderRadius: 10,
   },
   input: {
@@ -361,7 +386,10 @@ const styles = StyleSheet.create({
   btn: {
     width: '100%',
     height: 50,
-    backgroundColor: '#4bccff3f',
+    backgroundColor: '#ffffff',
+    elevation: 5,
+    borderColor: '#00b7ffde',
+    borderWidth: 0.3,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',

@@ -9,10 +9,12 @@ import {
 import { useSelector } from 'react-redux';
 import InputText from '../component/InputText';
 import { useState } from 'react';
+import useScreenBackground from '../hooks/useScreenBackground';
 
 const Search = () => {
   const [searchText, setSearchText] = useState<string>('');
   const items = useSelector(state => state.post);
+  const Background = useScreenBackground();
   const [itemList, setItemList] = useState(items.data);
   const filterList = (text: string) => {
     let tempList = items.data;
@@ -23,6 +25,7 @@ const Search = () => {
   };
   return (
     <View style={styles.container}>
+      <Background />
       <View style={styles.searchBox}>
         <InputText
           placeholder="Search for products"
@@ -42,6 +45,13 @@ const Search = () => {
       <FlatList
         data={itemList}
         style={{ marginTop: 20 }}
+        ListEmptyComponent={() => (
+          <View style={styles.listEmptyComp}>
+            <Text style={{ fontSize: 19, fontWeight: 'bold' }}>
+              No Items...
+            </Text>
+          </View>
+        )}
         renderItem={({ item }) => (
           <TouchableOpacity style={styles.item} activeOpacity={0.6}>
             <Image source={{ uri: item?.photo }} style={styles.itemImage2} />
@@ -62,6 +72,14 @@ const Search = () => {
 export default Search;
 
 const styles = StyleSheet.create({
+  listEmptyComp: {
+    alignItems: 'center',
+    marginTop: '50%',
+    opacity: 0.3,
+    backgroundColor: 'white',
+    paddingVertical: 20,
+    borderRadius: 10,
+  },
   container: {
     flex: 1,
     paddingHorizontal: 10,
@@ -80,9 +98,11 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 20,
     borderRadius: 10,
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderColor: 'grey',
     justifyContent: 'space-between',
+    backgroundColor: '#ffffff',
+    elevation: 5,
     paddingLeft: 10,
     flexDirection: 'row',
     alignItems: 'center',

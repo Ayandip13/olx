@@ -24,7 +24,7 @@ const AppNavigator = () => {
           name="ItemsByCategory"
           component={ItemsByCategory}
           options={{
-            headerShown: true,
+            headerShown: false,
             headerTitle: 'Items By Categories',
             headerTitleAlign: 'center',
             headerStyle: {

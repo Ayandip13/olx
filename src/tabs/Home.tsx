@@ -13,10 +13,12 @@ import InputText from '../component/InputText';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { addToWishList } from '../redux/WishListSlice';
+import useScreenBackground from '../hooks/useScreenBackground.js';
 
 const Home = () => {
   const [searchText, setSearchText] = useState<string>('');
   const navigation = useNavigation();
+  const Background = useScreenBackground();
   const dispatch = useDispatch();
   const data = [
     {
@@ -55,6 +57,7 @@ const Home = () => {
   const data2 = items.data;
   return (
     <ScrollView nestedScrollEnabled={false} style={styles.container}>
+      <Background />
       <Text style={styles.logo}>Olx clone</Text>
       <View style={styles.searchBox}>
         <InputText
@@ -113,6 +116,7 @@ const Home = () => {
                 >
                   <Image
                     source={require('../images/heart.png')}
+                    tintColor={'#00c3ff'}
                     style={styles.heart}
                   />
                 </TouchableOpacity>
@@ -160,7 +164,7 @@ const styles = StyleSheet.create({
     width: '72%',
   },
   itemCategoryContainer: {
-    backgroundColor: '#00c3ff59',
+    backgroundColor: '#ffffff',
     borderWidth: 1,
     borderColor: '#00c3ff',
     borderRadius: 20,
@@ -186,13 +190,15 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 20,
     borderRadius: 10,
-    borderWidth: 1,
+    borderWidth: 0.3,
     borderColor: 'grey',
     justifyContent: 'space-between',
     paddingLeft: 10,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 20,
+    backgroundColor: '#ffffff',
+    elevation: 5,
   },
   searchIcon: {
     width: 20,
@@ -215,7 +221,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#b7ebff3f',
+    backgroundColor: '#ffffff',
+    borderColor: '#00c3ff',
+    borderWidth: 0.5,
     margin: 4,
     borderRadius: 10,
     paddingBottom: 5,
@@ -231,7 +239,7 @@ const styles = StyleSheet.create({
   item: {
     width: '90%',
     height: 100,
-    backgroundColor: '#b7ebff3f',
+    backgroundColor: '#ffffff',
     marginTop: 5,
     alignSelf: 'center',
     borderRadius: 10,
@@ -262,13 +270,14 @@ const styles = StyleSheet.create({
   },
   postedItemCard: {
     flexDirection: 'row',
-    backgroundColor: '#b7ebff3f',
+    backgroundColor: '#ffffff',
     borderRadius: 10,
     padding: 10,
     marginVertical: 5,
     alignItems: 'center',
     width: '90%',
     alignSelf: 'center',
+    elevation: 5,
   },
   postedItemImage: {
     width: 70,
@@ -303,12 +312,13 @@ const styles = StyleSheet.create({
     color: 'green',
   },
   postedItemCategoryContainer: {
-    backgroundColor: '#00c3ff59',
-    borderWidth: 1,
+    backgroundColor: '#ffffff',
+    borderWidth: 0.5,
     borderColor: '#00c3ff',
     borderRadius: 20,
     paddingVertical: 2,
     paddingHorizontal: 10,
+    // elevation: 5,
   },
   postedItemCategory: {
     fontSize: 12,

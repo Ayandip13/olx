@@ -8,13 +8,26 @@ import {
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import useScreenBackground from '../hooks/useScreenBackground';
 
 const Search = () => {
   const items = useSelector((state: RootState) => state.wishlist);
+  const Background = useScreenBackground();
   return (
     <View style={styles.container}>
+      <Background />
       <FlatList
         data={items.data}
+        ListHeaderComponent={() => (
+          <View style={styles.listHeaderComp}>
+            <Text style={{ fontSize: 17, fontWeight: 'bold' }}>Wishlist</Text>
+          </View>
+        )}
+        ListEmptyComponent={() => (
+          <View style={styles.listEmptyComp}>
+            <Text style={{ fontSize: 19, fontWeight: 'bold' }}>No Items</Text>
+          </View>
+        )}
         style={{ marginTop: 20 }}
         renderItem={({ item }) => (
           <TouchableOpacity style={styles.item} activeOpacity={0.6}>
@@ -113,5 +126,21 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     width: '72%',
+  },
+  listEmptyComp: {
+    alignItems: 'center',
+    marginTop: "100%",
+    opacity: 0.3,
+    backgroundColor: 'white',
+    paddingVertical: 20,
+    borderRadius: 10,
+  },
+  listHeaderComp: {
+    backgroundColor: '#00c3ff59',
+    paddingVertical: 10,
+    alignItems: 'center',
+    marginBottom: 10,
+    width: '100%',
+    borderRadius: 10,
   },
 });

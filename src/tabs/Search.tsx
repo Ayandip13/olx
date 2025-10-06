@@ -13,7 +13,7 @@ import useScreenBackground from '../hooks/useScreenBackground';
 
 const Search = () => {
   const [searchText, setSearchText] = useState<string>('');
-  const items = useSelector(state => state.post);
+  const items = useSelector((state: any) => state.post);
   const Background = useScreenBackground();
   const [itemList, setItemList] = useState(items.data);
   const filterList = (text: string) => {

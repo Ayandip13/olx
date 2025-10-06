@@ -11,7 +11,7 @@ import {
 import React, { useState } from 'react';
 import InputText from '../component/InputText';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { addToWishList } from '../redux/WishListSlice';
 import useScreenBackground from '../hooks/useScreenBackground.js';
 

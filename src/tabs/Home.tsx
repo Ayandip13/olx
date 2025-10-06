@@ -8,10 +8,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import InputText from '../component/InputText';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { addToWishList } from '../redux/WishListSlice';
 import useScreenBackground from '../hooks/useScreenBackground.js';
 
@@ -52,7 +52,7 @@ const Home = () => {
       image: require('../images/furniture.png'),
     },
   ];
-  const items = useSelector(state => state.post);
+  const items = useSelector((state: any) => state.post);
   console.log('items', items);
   const data2 = items.data;
   return (
@@ -109,7 +109,7 @@ const Home = () => {
                 <Text style={styles.postedItemName}>{item.name}</Text>
                 <TouchableOpacity
                   onPress={() => {
-                    navigation.navigate('WishList');
+                    navigation.navigate('WishList' as never);
                     dispatch(addToWishList(item));
                   }}
                   activeOpacity={0.6}

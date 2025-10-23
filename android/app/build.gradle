@@ -77,9 +77,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.olxrn"
+    namespace "com.Bookosaurs"
     defaultConfig {
-        applicationId "com.olxrn"
+        applicationId "com.Bookosaurs"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

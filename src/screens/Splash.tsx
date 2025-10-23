@@ -49,7 +49,7 @@ const Splash = () => {
   return (
     <View style={styles.container}>
       <Background />
-      <Animated.Text style={[styles.logo, animatedStyle]}>OLX</Animated.Text>
+      <Animated.Text style={[styles.logo, animatedStyle]}>Bookosaurs</Animated.Text>
     </View>
   );
 };
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   logo: {
     fontSize: 42,
     fontWeight: 'bold',
-    color: '#000',
+    color: '#006dacff',
     letterSpacing: 2,
   },
 });

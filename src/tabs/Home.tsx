@@ -23,33 +23,23 @@ const Home = () => {
   const data = [
     {
       id: '1',
-      title: 'Car',
-      image: require('../images/car.png'),
+      title: 'New Books',
+      image: require('../images/new-book.png'),
     },
     {
       id: '2',
-      title: 'Bike',
-      image: require('../images/bycicle.png'),
+      title: 'Old Books',
+      image: require('../images/old-book.png'),
     },
     {
       id: '3',
-      title: 'Mobile',
-      image: require('../images/mobile-app.png'),
+      title: 'Copies',
+      image: require('../images/excersize-book.png'),
     },
     {
       id: '4',
-      title: 'Laptop',
-      image: require('../images/laptop-screen.png'),
-    },
-    {
-      id: '5',
-      title: 'House',
-      image: require('../images/house.png'),
-    },
-    {
-      id: '6',
-      title: 'Furniture',
-      image: require('../images/furniture.png'),
+      title: 'Stickers',
+      image: require('../images/stickers.png'),
     },
   ];
   const items = useSelector((state: any) => state.post);
@@ -58,7 +48,7 @@ const Home = () => {
   return (
     <ScrollView nestedScrollEnabled={false} style={styles.container}>
       <Background />
-      <Text style={styles.logo}>Olx clone</Text>
+      <Text style={styles.logo}>Bookosaurs</Text>
       <View style={styles.searchBox}>
         <InputText
           placeholder="Search for products"
@@ -181,7 +171,7 @@ const styles = StyleSheet.create({
   logo: {
     fontSize: 30,
     fontWeight: 'bold',
-    color: 'blue',
+    color: '#006dacff',
     marginTop: 20,
   },
   searchBox: {

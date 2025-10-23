@@ -185,84 +185,84 @@ const Add = () => {
           <TouchableOpacity
             style={[
               styles.categorySelector,
-              selectedCategory === 'Car'
+              selectedCategory === 'New Book'
                 ? { backgroundColor: '#00b7ffde', borderColor: '#00b7ffde' }
                 : { backgroundColor: '#ffffff', borderColor: '#000000' },
             ]}
-            onPress={() => setSelectedCategory('Car')}
+            onPress={() => setSelectedCategory('New Book')}
           >
             <Text
               style={[
                 styles.inputText,
-                selectedCategory === 'Car'
+                selectedCategory === 'New Book'
                   ? { color: '#ffffff' }
                   : { color: '#000000' },
               ]}
             >
-              Car
+              New Book
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[
               styles.categorySelector,
-              selectedCategory === 'Bike'
+              selectedCategory === 'Old Book'
                 ? { backgroundColor: '#00b7ffde', borderColor: '#00b7ffde' }
                 : { backgroundColor: '#ffffff', borderColor: '#000000' },
             ]}
-            onPress={() => setSelectedCategory('Bike')}
+            onPress={() => setSelectedCategory('Old Book')}
           >
             <Text
               style={[
                 styles.inputText,
-                selectedCategory === 'Bike'
+                selectedCategory === 'Old Book'
                   ? { color: '#ffffff' }
                   : { color: '#000000' },
               ]}
             >
-              Bike
+              Old Book
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[
               styles.categorySelector,
-              selectedCategory === 'Mobile'
+              selectedCategory === 'Stickers'
                 ? { backgroundColor: '#00b7ffde', borderColor: '#00b7ffde' }
                 : { backgroundColor: '#ffffff', borderColor: '#000000' },
             ]}
-            onPress={() => setSelectedCategory('Mobile')}
+            onPress={() => setSelectedCategory('Stickers')}
           >
             <Text
               style={[
                 styles.inputText,
-                selectedCategory === 'Mobile'
+                selectedCategory === 'Stickers'
                   ? { color: '#ffffff' }
                   : { color: '#000000' },
               ]}
             >
-              Mobile
+              Stickers
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[
               styles.categorySelector,
-              selectedCategory === 'Laptop'
+              selectedCategory === 'Copies'
                 ? { backgroundColor: '#00b7ffde', borderColor: '#00b7ffde' }
                 : { backgroundColor: '#ffffff', borderColor: '#000000' },
             ]}
-            onPress={() => setSelectedCategory('Laptop')}
+            onPress={() => setSelectedCategory('Copies')}
           >
             <Text
               style={[
                 styles.inputText,
-                selectedCategory === 'Laptop'
+                selectedCategory === 'Copies'
                   ? { color: '#ffffff' }
                   : { color: '#000000' },
               ]}
             >
-              Laptop
+              Copies
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={[
               styles.categorySelector,
               selectedCategory === 'Furniture'
@@ -301,7 +301,7 @@ const Add = () => {
             >
               House
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <TouchableOpacity style={styles.btn} onPress={addItem}>
           <Text style={styles.btnText}>Post My Item</Text>
@@ -374,14 +374,13 @@ const styles = StyleSheet.create({
     borderColor: '#aaaaaa',
     borderRadius: 10,
     height: 50,
-    paddingLeft: 10,
     justifyContent: 'center',
   },
   categoryContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    // marginHorizontal: 30,
-    justifyContent: 'space-between',
+    columnGap: 15,
+    justifyContent: 'center',
   },
   btn: {
     width: '100%',

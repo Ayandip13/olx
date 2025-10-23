@@ -17,20 +17,26 @@ const ItemsByCategory = () => {
   const [itemList, setItemList] = useState<string[]>([]);
   const items = useSelector(state => state.post);
   useEffect(() => {
-    let tempData = items.data;
-    let tem: any = [];
-    tempData.map(item => {
-      if (item.category === route.params.category) {
-        tem.push(item);
-      }
+    if (!items?.data) return;
+
+    const filteredItems = items.data.filter(item => {
+      return item.category === route.params.category;
     });
-    setItemList(tem);
-  }, []);
+
+    setItemList(filteredItems);
+  }, [items, route.params.category]);
   return (
     <View>
       <Background />
       <FlatList
         data={itemList}
+        ListEmptyComponent={() => (
+          <View style={{ alignItems: 'center', marginTop: 40 }}>
+            <Text style={{ color: 'grey' }}>
+              No items found in this category.
+            </Text>
+          </View>
+        )}
         ListHeaderComponentStyle={{ alignItems: 'center' }}
         ListHeaderComponent={() => {
           return (
